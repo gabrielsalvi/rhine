@@ -1,0 +1,55 @@
+form.login-form {
+    
+    text-align: center;
+    position: fixed;
+    top: 0; bottom: 0;
+    left: 0; right: 0;
+    margin: auto;
+    width: 35%;
+    height: 55%;
+    border-radius: 15px;
+    box-shadow: 0px 4px 6px rgba(0,0,0,0.15),0px 0px 2px rgba(0,0,0,0.15);
+    font-size: medium;
+    min-height: 340px;
+}
+
+form.login-form div.login-fields {
+    position: relative;
+    margin-top: 12%;
+}
+
+form.login-form div.login-fields input {
+
+    position: relative;
+    top: 25%;
+    margin:10px 0;
+    padding: 10px;
+    width: 70%;
+    height: 40px;
+    border-radius: 20px;
+    box-shadow: 0px 4px 6px rgba(0,0,0,0.15),0px 0px 2px rgba(0,0,0,0.15);
+}
+
+form.login-form div.login-fields input[type=submit] {
+    margin-top: 8%;
+    background-color: #f90505;
+    color: white;
+    transition: 0.3s;
+}
+
+form.login-form div.login-fields input[type=submit]:hover {
+    cursor: pointer;
+    background-color: #cb1a06;
+}
+
+form.login-form div.forgot-password a {
+    display:inline-block;
+    margin-right: 42%;
+    font-size: 12px;
+    color: gray;
+}
+
+form.login-form div.forgot-password a:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
