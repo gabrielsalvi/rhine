@@ -9,11 +9,11 @@
 
     <link rel="stylesheet" href="public/css/main.css">
     <link rel="stylesheet" href="public/css/navbar.css">
+    <link rel="stylesheet" href="public/css/match.css">
 
-    <title>Matches</title>
+    <title>Partidas</title>
 </head>
 <body>
-    <div class="grid-container">
         <nav>
             <div class="website-logo">
                 <span>Logo do Site</span>
@@ -29,6 +29,40 @@
                 <a href="" title="Profile" target="_blank"><img src="public/img/icons/default-profile-66x66.png" alt="profile"></a>
             </div>
         </nav>
-    </div>
+        <section id="matches-container">
+            <div class="match">
+                <div class="registered-people">
+                    <span><img src="public/img/icons/athlete-50x50.png"></span>
+                    <span class="participants-number">9/14</span>
+                </div>
+                <span class="place">Sosete</span>
+                <span class="sport"><strong>Futebol 7</strong></span>
+                <span class="date">17/03</span>
+                <span class="time">20h00 - 21h00</span>
+                <span class="price">R$10,00</span>
+            </div>
+            <div class="match">
+                <div class="registered-people">
+                    <span><img src="public/img/icons/athlete-50x50.png"></span>
+                    <span class="participants-number">5/14</span>
+                </div>
+                <span class="place">Sports Center</span>
+                <span class="sport"><strong>Volleyball</strong></span>
+                <span class="date">17/03</span>
+                <span class="time">20h30 - 21h30</span>
+                <span class="price">R$8,00</span>
+            </div>
+            <div class="match">
+                <div class="registered-people">
+                    <span><img src="public/img/icons/athlete-50x50.png"></span>
+                    <span class="participants-number">6/12</span>
+                </div>
+                <span class="place">Titi</span>
+                <span class="sport"><strong>Futebol 7</strong></span>
+                <span class="date">17/03</span>
+                <span class="time">22h00 - 23h00</span>
+                <span class="price">R$12,00</span>
+            </div>
+        </section>
 </body>
 </html>
