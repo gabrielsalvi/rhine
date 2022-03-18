@@ -1,0 +1,17 @@
+form#login-form {
+    width: 35%;
+    height: 55%;
+    min-height: 340px;
+}
+
+.forgot-password a {
+    display:inline-block;
+    margin-right: 42%;
+    font-size: 12px;
+    color: gray;
+}
+
+.forgot-password a:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}

@@ -19,7 +19,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Entre | Meu Site</title>
+        <title>Entre | {Nome do Site}</title>
 
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -29,12 +29,13 @@
 
         <link rel="stylesheet" href="public/css/main.css">
         <link rel="stylesheet" href="public/css/form.css">
+        <link rel="stylesheet" href="public/css/login.css">
     </head>
     <body>
-        <form action="login.php" method="post" class="login-form">
-            <div class="login-fields">
-                <input type="text" name="email" placeholder="Email ou Username"/>
-                <input type="password" name="password" placeholder="Senha"/>
+        <form id="login-form" action="login.php" method="post">
+            <div class="input-area">
+                <input type="text" name="email" placeholder="Email ou Username" required/>
+                <input type="password" name="password" placeholder="Senha" required/>
                 <input type="submit" value="Login">
             </div>
             <div class="forgot-password">
