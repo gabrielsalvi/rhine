@@ -1,0 +1,83 @@
+form#match-registration-form {
+    width: 60%;
+    height: 85%;
+    display: grid;
+    grid-template-columns: 0.5fr 1fr 2fr 0.5fr;
+    grid-template-rows: repeat(11, 1fr);
+    align-items: center;
+    justify-items: center;
+}
+
+form#match-registration-form h1 {
+    grid-column: 2 / 4;
+    grid-row: 2;
+}
+
+form#match-registration-form label {
+    font-size: 17px;
+    justify-self: start;
+}
+
+form#match-registration-form input, select {
+    width: 95%;
+    height: 40px;
+    text-align: center;
+    justify-self: end;
+}
+
+form#match-registration-form label[for=sports-list] {
+    grid-column: 2;
+    grid-row: 4;
+}
+
+form#match-registration-form select[name=sports-list] {
+    grid-column: 3 / 4;
+    grid-row: 4;
+}
+
+form#match-registration-form label[for=match-date] {
+    grid-column: 2;
+    grid-row: 5;
+}
+
+form#match-registration-form input[name=match-date] {
+    grid-column: 3;
+    grid-row: 5;
+}
+
+form#match-registration-form label[for=start-time] {
+    grid-column: 2;
+    grid-row: 6;
+}
+
+form#match-registration-form input[name=start-time] {
+    grid-column: 3;
+    grid-row: 6;
+}
+
+form#match-registration-form label[for=end-time] {
+    grid-column: 2;
+    grid-row: 7;
+}
+
+form#match-registration-form input[name=end-time] {
+    grid-column: 3;
+    grid-row: 7;
+}
+
+form#match-registration-form label[for=price] {
+    grid-column: 2;
+    grid-row: 8;
+}
+
+form#match-registration-form input[name=price] {
+    grid-column: 3;
+    grid-row: 8;
+}
+
+form#match-registration-form input[type=submit] {
+    width: 100%;
+    grid-column: 2 / 4;
+    grid-row: 10;
+    align-self: start;
+}
