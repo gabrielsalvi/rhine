@@ -1,12 +1,36 @@
 form#login-form {
     width: 35%;
     height: 55%;
-    min-height: 340px;
+    display: grid;
+    grid-template-columns: 0.1fr 2fr 0.1fr;
+    grid-template-rows: repeat(5, 1fr);
+    align-items: center;
+    justify-items: center;
 }
 
-.forgot-password a {
+form#login-form input[name=email] {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+form#login-form input[name=password] {
+    grid-column: 2;
+    grid-row: 3;
+}
+
+form#login-form input[type=submit] {
+    grid-column: 2;
+    grid-row: 4;
+}
+
+form#login-form .forgot-password {
+    grid-column: 2;
+    grid-row: 5;
+    align-self: start;
+}
+
+form#login-form .forgot-password a {
     display:inline-block;
-    margin-right: 42%;
     font-size: 12px;
     color: gray;
 }

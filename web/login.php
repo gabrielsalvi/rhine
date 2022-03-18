@@ -32,15 +32,15 @@
         <link rel="stylesheet" href="public/css/login.css">
     </head>
     <body>
-        <form id="login-form" action="login.php" method="post">
-            <div class="input-area">
+        <div class="form-container">
+            <form id="login-form" action="login.php" method="post">
                 <input type="text" name="email" placeholder="Email ou Username" required/>
                 <input type="password" name="password" placeholder="Senha" required/>
                 <input type="submit" value="Login">
-            </div>
-            <div class="forgot-password">
-                <a href="index.php">Esqueceu a senha?</a>
-            </div>
-        </form>
+                <div class="forgot-password">
+                    <a href="index.php">Esqueceu a senha?</a>
+                </div>
+            </form>
+        </div>
     </body>
 </html>
