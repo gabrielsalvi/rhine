@@ -4,18 +4,11 @@ form#match-registration-form {
     display: grid;
     grid-template-columns: 0.5fr 1fr 2fr 0.5fr;
     grid-template-rows: repeat(11, 1fr);
-    align-items: center;
-    justify-items: center;
 }
 
 form#match-registration-form h1 {
     grid-column: 2 / 4;
     grid-row: 2;
-}
-
-form#match-registration-form label {
-    font-size: 17px;
-    justify-self: start;
 }
 
 form#match-registration-form input, select {
