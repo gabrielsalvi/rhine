@@ -1,26 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Cadastre-se | Meu Site</title>
+        <title>Cadastre-se | {Nome do Site}</title>
 
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+        <script src="https://cdn.tailwindcss.com"></script>
 
         <link rel="stylesheet" href="public/css/main.css">
+        <link rel="stylesheet" href="public/css/form.css">
+        <link rel="stylesheet" href="public/css/athlete-registration.css">
     </head>
     <body>
-        <form action="registration.php" method="post">
-                <input type="text" name="first-name" placeholder="Nome" required/>
-                <input type="text" name="last-name" placeholder="Sobrenome" required/>
-                <input type="date" name="birthdate" placeholder="Data de Nascimento" required/>
-                <input type="text" name="phone-number" placeholder="Nº de Telefone" required/>
-                <input type="email" name="email" placeholder="Email" required>
-                <input type="text" name="username" placeholder="Nome de Usuário" required>
-                <input type="password" name="password" placeholder="Senha" required>
-                <input type="submit" value="Avançar">
-        </form>
+        <div class="form-container">
+            <form id="athlete-registration-form" action="athlete-registration.php" method="post">
+                <h1>Cadastro de Atleta</h1>
+                <label for="first-name">Nome:</label>
+                <input type="text" name="first-name" required/>
+                
+                <label for="last-name">Sobrenome:</label>
+                <input type="text" name="last-name" required/>
+                
+                <label for="birthdate">Data de Nascimento:</label>
+                <input type="date" name="birthdate" required/>
+                
+                <label for="email">Email:</label>
+                <input type="email" name="email" required/>
+                
+                <label for="username">Nome de Usuário:</label>
+                <input type="text" name="username" required/>
+                
+                <label for="password">Senha:</label>
+                <input type="password" name="password" required/>
+                
+                <input type="submit" value="Cadastrar-se">
+            </form>
+        </div>
     </body>
 </html>
