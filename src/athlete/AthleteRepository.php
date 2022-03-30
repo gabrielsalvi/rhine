@@ -5,10 +5,8 @@
         public function create(Athlete $athlete) {
 
             if ($athlete->validate()) {
-        
-                require __DIR__ . '/../database.php';
-        
-                $db = connect();
+                
+                $db = Database::getConnection();
         
                 $sql = 'INSERT INTO atletas (cpf, nome, sobrenome, dtnascimento, username, email, senha) 
                         VALUES (:cpf, :firstname, :lastname, :birthdate, :username, :email, :_password);';
