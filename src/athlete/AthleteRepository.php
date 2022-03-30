@@ -14,9 +14,7 @@
                         VALUES (:cpf, :firstname, :lastname, :birthdate, :username, :email, :_password);';
         
                 $stmt = $db->prepare($sql);
-        
-                echo $athlete->getCPF() . " - " . $athlete->getFirstName();
-
+    
                 $hash = password_hash($athlete->getPassword(), PASSWORD_DEFAULT);
         
                 $stmt->bindParam(':cpf', $athlete->getCPF());

@@ -2,7 +2,7 @@
 
 function connect(): PDO {
 
-  require 'config.php';
+  require '../../resources/config.php';
   
   $dsn = "pgsql:host=$host;port=$port;dbname=$db;";
 
@@ -47,7 +47,7 @@ function createTables(PDO $db) {
       dtnascimento DATE NOT NULL,
       username VARCHAR(20) NOT NULL,
       email VARCHAR(30) NOT NULL,
-      senha VARCHAR(30) NOT NULL,
+      senha VARCHAR(255) NOT NULL,
       id_endereco INTEGER,
       CONSTRAINT fk_endereco FOREIGN KEY (id_endereco) REFERENCES enderecos (id),
       PRIMARY KEY (cpf)
@@ -58,7 +58,7 @@ function createTables(PDO $db) {
         descricao VARCHAR(160),
         username VARCHAR(20) NOT NULL,
         email VARCHAR(30) NOT NULL,
-        senha VARCHAR(30) NOT NULL,
+        senha VARCHAR(255) NOT NULL,
         horario_abertura TIME NOT NULL,
         horario_fechamento TIME NOT NULL,
         PRIMARY KEY (cnpj) 

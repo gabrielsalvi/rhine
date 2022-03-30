@@ -1,8 +1,8 @@
 <?php
 
     if (isset($_POST['submit'])) {
-        require 'entities/Athlete.php';
-        require 'repository/AthleteRepository.php';
+        require '../../src/athlete/Athlete.php';
+        require '../../src/athlete/AthleteRepository.php';
 
         $athlete = new Athlete();
 
@@ -29,9 +29,9 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <link rel="stylesheet" href="public/css/main.css">
-        <link rel="stylesheet" href="public/css/form.css">
-        <link rel="stylesheet" href="public/css/athlete-registration.css">
+        <link rel="stylesheet" href="../css/main.css">
+        <link rel="stylesheet" href="../css/form.css">
+        <link rel="stylesheet" href="../css/athlete-registration.css">
     </head>
     <body>
         <div class="form-container">
