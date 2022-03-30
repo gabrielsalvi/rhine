@@ -1,6 +1,7 @@
 <?php
+    require '../init.php';
 
-    if (isset($_POST['submit'])) {
+    if (isset($_POST['submit'])) {    
         require '../../src/athlete/Athlete.php';
         require '../../src/athlete/AthleteRepository.php';
 
