@@ -1,0 +1,106 @@
+form#sport-center-registration-form {
+    width: 60%;
+    height: 95%;
+    display: grid;
+    grid-template-columns: 0.5fr 1fr 2fr 0.5fr;
+    grid-template-rows: repeat(14, 1fr);
+}
+
+form#sport-center-registration-form h1 {
+    grid-column: 2 / 4;
+    grid-row: 2;
+}
+
+form#sport-center-registration-form input, select, textarea {
+    width: 95%;
+    height: 40px;
+    text-align: center;
+    justify-self: end;
+}
+
+form#sport-center-registration-form label[for=name] {
+    grid-column: 2;
+    grid-row: 4;
+}
+
+form#sport-center-registration-form input[name=name] {
+    grid-column: 3;
+    grid-row: 4;
+}
+
+form#sport-center-registration-form label[for=description] {
+    grid-column: 2;
+    grid-row: 5;
+}
+
+form#sport-center-registration-form textarea[name=description] {
+    grid-column: 3;
+    grid-row: 5;
+}
+
+form#sport-center-registration-form label[for=cnpj] {
+    grid-column: 2;
+    grid-row: 6;
+}
+
+form#sport-center-registration-form input[name=cnpj] {
+    grid-column: 3;
+    grid-row: 6;
+}
+
+form#sport-center-registration-form label[for=openHour] {
+    grid-column: 2;
+    grid-row: 7;
+}
+
+form#sport-center-registration-form input[name=openHour] {
+    grid-column: 3;
+    grid-row: 7;
+}
+
+form#sport-center-registration-form label[for=closeHour] {
+    grid-column: 2;
+    grid-row: 8;
+}
+
+form#sport-center-registration-form input[name=closeHour] {
+    grid-column: 3;
+    grid-row: 8;
+}
+
+form#sport-center-registration-form label[for=username] {
+    grid-column: 2;
+    grid-row: 9;
+}
+
+form#sport-center-registration-form input[name=username] {
+    grid-column: 3;
+    grid-row: 9;
+}
+
+form#sport-center-registration-form label[for=email] {
+    grid-column: 2;
+    grid-row: 10;
+}
+
+form#sport-center-registration-form input[name=email] {
+    grid-column: 3;
+    grid-row: 10;
+}
+
+form#sport-center-registration-form label[for=password] {
+    grid-column: 2;
+    grid-row: 11;
+}
+
+form#sport-center-registration-form input[name=password] {
+    grid-column: 3;
+    grid-row: 11;
+}
+
+form#sport-center-registration-form input[type=submit] {
+    width: 100%;
+    grid-column: 2 / 4;
+    grid-row: 13;
+    align-self: start;
+}
