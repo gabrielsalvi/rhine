@@ -3,9 +3,7 @@
     class AthleteRepository {
 
         public function create(Athlete $athlete) {
-
             if ($athlete->validate()) {
-                
                 $db = Database::getConnection();
         
                 $sql = 'INSERT INTO atletas (cpf, nome, sobrenome, dtnascimento, username, email, senha) 
@@ -24,9 +22,44 @@
                 $stmt->bindParam(':_password', $hash);
         
                 $stmt->execute();
-              
             }
-          }
+        }
+
+        public function getAthleteByCPF($cpf) {
+
+            require 'AthleteMapper.php';
+
+            $db = Database::getConnection();
+
+            $sql = "SELECT * FROM atletas WHERE cpf = :cpf;";
+
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(':cpf', $_SESSION['cpf']);
+            $stmt->execute();
+
+            $athleteData = $stmt->fetch();
+            $athlete = AthleteMapper::toEntity($athleteData);
+
+            return $athlete;
+        }
+
+        public function getAthleteByEmail($email) {
+            
+            require 'AthleteMapper.php';
+
+            $db = Database::getConnection();
+
+            $sql = "SELECT * FROM atletas WHERE email = :email;";
+
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(':email', $email);
+            $stmt->execute();
+
+            $athleteData = $stmt->fetch();
+            $athlete = AthleteMapper::toEntity($athleteData);
+
+            return $athlete;
+        }
     }
 
 ?>

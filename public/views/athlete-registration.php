@@ -1,19 +1,15 @@
 <?php
     require '../init.php';
 
+    if (isAuthenticated($_SESSION['cpf'])) {
+        header('Location: login.php');
+        exit();
+    }
+
     if (isset($_POST['submit'])) {    
-        require '../../src/athlete/Athlete.php';
         require '../../src/athlete/AthleteRepository.php';
 
-        $athlete = new Athlete();
-
-        $athlete->setFirstName($_POST['first-name']);
-        $athlete->setLastName($_POST['last-name']);
-        $athlete->setCPF($_POST['cpf']);
-        $athlete->setBirthdate($_POST['birthdate']);
-        $athlete->setUsername($_POST['username']);
-        $athlete->setEmail($_POST['email']);
-        $athlete->setPassword($_POST['password']);
+        $athlete = AthleteMapper::toModel($_POST);
     
         $athleteRepository = new AthleteRepository();
         $athleteRepository->create($athlete);
