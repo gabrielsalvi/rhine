@@ -1,17 +1,32 @@
 <?php 
 
-    require_once('../init.php');
+    require '../init.php';
 
-    if (isset($_SESSION['authenticated'])) {
+    if (isset($_SESSION['athlete-cpf'])) {
         header('Location: profile.php');
         exit();
     }
+    
+    if (isset($_POST['login'])) {
+        $email = $_POST['email'];
+        $password = $_POST['password'];
 
-    if (@$_POST['email'] == 'abc' && @$_POST['password'] == 'abc') {
-        $_SESSION['authenticated'] = 1;
-        header('Location: profile.php');
-        exit();
+        $db = Database::getConnection();
+
+        $sql = "SELECT cpf, email, senha FROM atletas WHERE email = :email;";
+
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
+
+        $athleteData = $stmt->fetch();
+        
+        if (password_verify($password, $athleteData['senha'])) {
+            $_SESSION['athlete-cpf'] = $athleteData['cpf'];
+            header('Location: profile.php');
+        }
     }
+
 ?>
 
 <!DOCTYPE html>
@@ -30,9 +45,9 @@
     <body>
         <div class="form-container">
             <form id="login-form" action="login.php" method="post">
-                <input type="text" name="email" placeholder="Email ou Username" required/>
+                <input type="text" name="email" placeholder="Email" required/>
                 <input type="password" name="password" placeholder="Senha" required/>
-                <input type="submit" value="Login">
+                <input type="submit" name="login" value="Login">
                 <div class="forgot-password">
                     <a href="reset-password.php">Esqueceu a senha?</a>
                 </div>
