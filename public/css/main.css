@@ -23,7 +23,7 @@ html, body {
     height: 100%;
 }
 
-input, textarea, select {
+input, textarea, select, button {
     font-size: 100%;
     border: none;
 }

@@ -58,22 +58,22 @@ form#athlete-registration-form input[name=cpf] {
     grid-row: 7;
 }
 
-form#athlete-registration-form label[for=email] {
+form#athlete-registration-form label[for=username] {
     grid-column: 2;
     grid-row: 8;
 }
 
-form#athlete-registration-form input[name=email] {
+form#athlete-registration-form input[name=username] {
     grid-column: 3;
     grid-row: 8;
 }
 
-form#athlete-registration-form label[for=username] {
+form#athlete-registration-form label[for=email] {
     grid-column: 2;
     grid-row: 9;
 }
 
-form#athlete-registration-form input[name=username] {
+form#athlete-registration-form input[name=email] {
     grid-column: 3;
     grid-row: 9;
 }
