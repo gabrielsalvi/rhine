@@ -2,7 +2,7 @@
 
     class AthleteRepository {
 
-        public function create(Athlete $athlete) {
+        public function create(Athlete $athlete) : bool {
             if ($athlete->validate()) {
                 $db = Database::getConnection();
         
@@ -22,7 +22,11 @@
                 $stmt->bindParam(':_password', $hash);
         
                 $stmt->execute();
+
+                return true;
             }
+
+            return false;
         }
 
         public function getAthleteByCPF($cpf) {

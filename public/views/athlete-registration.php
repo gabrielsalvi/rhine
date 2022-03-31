@@ -8,11 +8,17 @@
 
     if (isset($_POST['submit'])) {    
         require '../../src/athlete/AthleteRepository.php';
+        require '../../src/athlete/AthleteMapper.php';
 
         $athlete = AthleteMapper::toModel($_POST);
     
         $athleteRepository = new AthleteRepository();
-        $athleteRepository->create($athlete);
+        $isAthleteSaved = $athleteRepository->create($athlete);
+
+        if ($isAthleteSaved) {
+            $_SESSION['cpf'] = $athlete->getCPF();
+            header('Location: profile.php');
+        }
     }
 
 ?>
@@ -34,6 +40,7 @@
         <div class="form-container">
             <form id="athlete-registration-form" action="athlete-registration.php" method="post">
                 <h1>Cadastro de Atleta</h1>
+
                 <label for="first-name">Nome:</label>
                 <input type="text" name="first-name" required/>
                 
@@ -46,11 +53,11 @@
                 <label for="cpf">CPF:</label>
                 <input type="text" name="cpf" required/>
                 
-                <label for="email">Email:</label>
-                <input type="email" name="email" required/>
-                
                 <label for="username">Nome de Usuário:</label>
                 <input type="text" name="username" required/>
+                
+                <label for="email">Email:</label>
+                <input type="email" name="email" required/>
                 
                 <label for="password">Senha:</label>
                 <input type="password" name="password" required/>
