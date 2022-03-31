@@ -1,30 +1,14 @@
 <?php 
 
     require '../init.php';
+    require '../../src/authentication.php';
 
-    if (isset($_SESSION['athlete-cpf'])) {
-        header('Location: profile.php');
-        exit();
+    if (isAuthenticated($_SESSION['cpf'])) {
+        header('Location: matches.php');
     }
     
     if (isset($_POST['login'])) {
-        $email = $_POST['email'];
-        $password = $_POST['password'];
-
-        $db = Database::getConnection();
-
-        $sql = "SELECT cpf, email, senha FROM atletas WHERE email = :email;";
-
-        $stmt = $db->prepare($sql);
-        $stmt->bindParam(':email', $email);
-        $stmt->execute();
-
-        $athleteData = $stmt->fetch();
-        
-        if (password_verify($password, $athleteData['senha'])) {
-            $_SESSION['athlete-cpf'] = $athleteData['cpf'];
-            header('Location: profile.php');
-        }
+        login($_POST['email'], $_POST['password']);
     }
 
 ?>
