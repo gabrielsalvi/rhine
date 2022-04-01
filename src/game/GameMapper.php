@@ -12,7 +12,7 @@ class GameMapper {
         $game->setEndHour($array['end-time']);
         $game->setPrice($array['price']);
         $game->setCNPJ($cnpj);
-        $game->setSportId($array['sport']);   
+        $game->setSportId($array['sport']);
 
         return $game;
     }
@@ -24,11 +24,11 @@ class GameMapper {
 
         $game->setId($array['id']);
         $game->setDate($array['data']);
-        $game->setStartHour($array['hora_inicial']);
-        $game->setEndHour($array['hora_final']);
+        $game->setStartHour($array['hora_inicio']);
+        $game->setEndHour($array['hora_termino']);
         $game->setPrice($array['valor']);
         $game->setCNPJ($array['cnpj']);
-        $game->setSportId($array['password']);
+        $game->setSportId($array['id_esporte']);
 
         return $game;
     }
