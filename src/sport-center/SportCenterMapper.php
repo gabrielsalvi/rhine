@@ -27,7 +27,7 @@ class SportCenterMapper {
         $sportCenter->setCNPJ($array['cnpj']);
         $sportCenter->setUsername($array['username']);
         $sportCenter->setEmail($array['email']);
-        $sportCenter->setPassword($array['password']);
+        $sportCenter->setPassword($array['senha']);
         $sportCenter->setOpenHour($array['horario_abertura']);
         $sportCenter->setCloseHour($array['horario_fechamento']);         
 
