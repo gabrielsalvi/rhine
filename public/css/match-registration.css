@@ -18,12 +18,12 @@ form#match-registration-form input, select {
     justify-self: end;
 }
 
-form#match-registration-form label[for=sports-list] {
+form#match-registration-form label[for=sport] {
     grid-column: 2;
     grid-row: 4;
 }
 
-form#match-registration-form select[name=sports-list] {
+form#match-registration-form select[name=sport] {
     grid-column: 3 / 4;
     grid-row: 4;
 }

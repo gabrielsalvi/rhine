@@ -1,3 +1,40 @@
+<?php
+
+require '../init.php';
+
+if (!isAuthenticated()) {
+    header('Location: login.php');
+    exit();
+}
+
+if (isset($_POST['submit'])) {    
+    require '../../src/game/GameRepository.php';
+    require '../../src/game/GameMapper.php';
+
+    $cnpj = $_SESSION['auth-key'];
+
+    $game = GameMapper::toModel($_POST, $cnpj);
+
+    $gameRepository = new GameRepository();
+    $created = $gameRepository->create($game);
+    
+    if ($created) {
+        // header('Location: matches.php');
+    }
+}
+
+function fillSelectWithSports() {
+    require '../../src/sport/SportRepository.php';
+    $sportRepository = new SportRepository();
+
+    $sports = $sportRepository->getSports();
+
+    foreach ($sports as $sport) {
+        echo "<option value='{$sport->getId()}'>{$sport->getDescription()}</option>";
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +44,7 @@
 
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/form.css">
-    <link rel="stylesheet" href="../css/match-registration.css">
+    <link rel="stylesheet" href="../css/game-registration.css">
 
     <title>Oferte uma Partida! | Rhine</title>
 </head>
@@ -15,11 +52,10 @@
     <div class="form-container">
         <form id="match-registration-form" action="" method="post">
             <h1>Dados da Partida</h1>
-            <label for="sports-list">Esporte:</label>
-            <select name="sports-list">
-                <option value="seven-a-side-footbal">Futebol Society</option>
-                <option value="futsal">Futsal</option>
-                <option value="volleyball">Vôlei</option>
+
+            <label for="sport">Esporte:</label>
+            <select name="sport">
+                <?php fillSelectWithSports(); ?>
             </select>
 
             <label for="match-date">Data:</label>
@@ -34,7 +70,7 @@
             <label for="price">Valor (R$): </label>
             <input type="text" name="price" placeholder="15,00" required/>
             
-            <input type="submit" value="Ofertar"/>
+            <input type="submit" name="submit" value="Ofertar"/>
         </form>
     </div>
 </body>
