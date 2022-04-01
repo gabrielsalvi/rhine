@@ -1,9 +1,8 @@
 <?php 
 
     require '../init.php';
-    require '../../src/authentication.php';
 
-    if (isAuthenticated($_SESSION['cpf'])) {
+    if (isAuthenticated()) {
         header('Location: matches.php');
     }
     
