@@ -1,7 +1,7 @@
 <?php
     require '../init.php';
 
-    if (isAuthenticated($_SESSION['cpf'])) {
+    if (isAuthenticated()) {
         header('Location: login.php');
         exit();
     }
@@ -13,10 +13,10 @@
         $athlete = AthleteMapper::toModel($_POST);
     
         $athleteRepository = new AthleteRepository();
-        $isAthleteSaved = $athleteRepository->create($athlete);
+        $created = $athleteRepository->create($athlete);
 
-        if ($isAthleteSaved) {
-            $_SESSION['cpf'] = $athlete->getCPF();
+        if ($created) {
+            $_SESSION['auth-key'] = $athlete->getCPF();
             header('Location: profile.php');
         }
     }

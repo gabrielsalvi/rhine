@@ -1,12 +1,12 @@
 <?php
     require '../init.php';
 
-    if (isAuthenticated($_SESSION['cnpj'])) {
+    if (isAuthenticated()) {
         header('Location: login.php');
         exit();
     }
 
-    if (isset($_POST['submit'])) {    
+    if (isset($_POST['submit'])) {
         require '../../src/sport-center/SportCenterRepository.php';
         require '../../src/sport-center/SportCenterMapper.php';
 
@@ -16,7 +16,7 @@
         $created = $sportCenterteRepository->create($sportCenter);
 
         if ($created) {
-            $_SESSION['cnpj'] = $sportCenter->getCNPJ();
+            $_SESSION['auth-key'] = $sportCenter->getCNPJ();
             header('Location: profile.php');
         }
         
