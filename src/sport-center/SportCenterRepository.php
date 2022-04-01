@@ -32,7 +32,7 @@
 
         public function getSportCenterByCNPJ($cnpj) {
 
-            require 'SportCenterMapper.php';
+            require_once 'SportCenterMapper.php';
 
             $db = Database::getConnection();
 
@@ -50,7 +50,7 @@
 
         public function getSportCenterByEmail($email) {
             
-            require 'SportCenterMapper.php';
+            require_once 'SportCenterMapper.php';
 
             $db = Database::getConnection();
 

@@ -25,7 +25,7 @@
 
         public function getSportById($id) {
 
-            require 'SportMapper.php';
+            require_once 'SportMapper.php';
 
             $db = Database::getConnection();
 

@@ -31,7 +31,7 @@
 
         public function getAthleteByCPF($cpf) {
 
-            require 'AthleteMapper.php';
+            require_once 'AthleteMapper.php';
 
             $db = Database::getConnection();
 
@@ -49,7 +49,7 @@
 
         public function getAthleteByEmail($email) {
             
-            require 'AthleteMapper.php';
+            require_once 'AthleteMapper.php';
 
             $db = Database::getConnection();
 
