@@ -61,8 +61,9 @@ class Database {
         email VARCHAR(30) NOT NULL,
         senha VARCHAR(255) NOT NULL,
         id_localizacao INTEGER,
+        PRIMARY KEY (cpf),
         CONSTRAINT fk_localizacao FOREIGN KEY (id_localizacao) REFERENCES localizacoes (id),
-        PRIMARY KEY (cpf)
+        UNIQUE (email, username)
       );',
       'CREATE TABLE IF NOT EXISTS estabelecimentos (
           cnpj VARCHAR(14),
@@ -73,7 +74,8 @@ class Database {
           senha VARCHAR(255) NOT NULL,
           horario_abertura TIME NOT NULL,
           horario_fechamento TIME NOT NULL,
-          PRIMARY KEY (cnpj) 
+          PRIMARY KEY (cnpj),
+          UNIQUE (email, username)
       );',
       'CREATE TABLE IF NOT EXISTS enderecos_estabelecimentos (
         id SERIAL,
@@ -93,12 +95,12 @@ class Database {
       );',
       'CREATE TABLE IF NOT EXISTS partidas (
         id SERIAL,
-        cnpj VARCHAR(14),
-        id_esporte INTEGER,
         data date NOT NULL,
-        hora_inicial TIME NOT NULL,
-        hora_final TIME NOT NULL,
+        hora_inicio TIME NOT NULL,
+        hora_termino TIME NOT NULL,
         valor NUMERIC(15,2) NOT NULL,
+        id_esporte INTEGER,
+        cnpj VARCHAR(14),
         PRIMARY KEY (id),
         CONSTRAINT fk_estabelecimento FOREIGN KEY (cnpj) REFERENCES estabelecimentos (cnpj),
         CONSTRAINT fk_esporte FOREIGN KEY (id_esporte) REFERENCES esportes (id)
@@ -112,10 +114,10 @@ class Database {
       );',
       'CREATE TABLE IF NOT EXISTS avaliacao (
         id_partida INTEGER,
-        avaliador VARCHAR(11),
-        avaliado VARCHAR(11),
         estrelas INTEGER NOT NULL,
         comentario VARCHAR(180),
+        avaliador VARCHAR(11),
+        avaliado VARCHAR(11),
         PRIMARY KEY(id_partida, avaliador, avaliado),
         CONSTRAINT fk_partida FOREIGN KEY (id_partida) REFERENCES partidas (id),
         CONSTRAINT fk_avaliador FOREIGN KEY (avaliador) REFERENCES atletas (cpf),
