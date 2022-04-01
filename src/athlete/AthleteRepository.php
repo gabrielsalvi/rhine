@@ -38,7 +38,7 @@
             $sql = "SELECT * FROM atletas WHERE cpf = :cpf;";
 
             $stmt = $db->prepare($sql);
-            $stmt->bindParam(':cpf', $_SESSION['cpf']);
+            $stmt->bindParam(':cpf', $cpf);
             $stmt->execute();
 
             $athleteData = $stmt->fetch();

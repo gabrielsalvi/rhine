@@ -39,7 +39,7 @@
             $sql = "SELECT * FROM estabelecimentos WHERE cnpj = :cnpj;";
 
             $stmt = $db->prepare($sql);
-            $stmt->bindParam(':cnpj', $_SESSION['cnpj']);
+            $stmt->bindParam(':cnpj', $cnpj);
             $stmt->execute();
 
             $sportCenterData = $stmt->fetch();
