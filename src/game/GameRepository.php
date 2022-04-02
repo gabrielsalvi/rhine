@@ -27,21 +27,63 @@
         }
 
         public function getGamesByCNPJ($cnpj) {
-
-            require 'GameMapper.php';
+            require_once 'GameMapper.php';
 
             $db = Database::getConnection();
 
-            $sql = "SELECT * FROM games WHERE cnpj = :cnpj;";
+            $sql = "SELECT * FROM partidas WHERE cnpj = :cnpj;";
 
             $stmt = $db->prepare($sql);
             $stmt->bindParam(':cnpj', $cnpj);
+
             $stmt->execute();
 
-            $gameData = $stmt->fetch();
-            $game = GameMapper::toEntity($gameData);
+            $gamesData = $stmt->fetchAll();
 
-            return $game;
+            $games = [];
+
+            foreach ($gamesData as $gameData) {
+                $game = GameMapper::toEntity($gameData);
+                array_push($games, $game);
+            }
+
+            return $games;
+        }
+
+        public function getGames() {
+            require_once 'GameMapper.php';
+
+            $db = Database::getConnection();
+
+            $sql = "SELECT * FROM partidas;";
+
+            $stmt = $db->prepare($sql);
+            $stmt->execute();
+
+            $gamesData = $stmt->fetchAll();
+
+            $games = [];
+
+            foreach ($gamesData as $gameData) {
+                $game = GameMapper::toEntity($gameData);
+                array_push($games, $game);
+            }
+
+            return $games;
+        }
+
+        public function getSport($sportId) {
+            require_once __DIR__ . '../../sport/SportRepository.php';
+            $sportRepository = new SportRepository();
+
+            return $sportRepository->getSportById($sportId);
+        }
+
+        public function getSportCenter($cnpj) {
+            require_once __DIR__ . '../../sport-center/SportCenterRepository.php';
+            $sportCenterRepository = new SportCenterRepository();
+
+            return $sportCenterRepository->getSportCenterByCNPJ($cnpj);
         }
 
     }
