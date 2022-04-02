@@ -1,0 +1,90 @@
+section#matches-container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    align-items: center;
+    justify-items: center;
+    margin-top: 20px;
+}
+
+section#matches-container strong {
+    font-size: 22px;
+}
+
+.match {
+    width: 80%;
+    height: 130px;
+    grid-column: 2 / 3;
+    
+    border: 2px solid var(--purple-200);
+    border-radius: 15px;
+    background-color: lightgray;
+    color: var(--purple-500);
+
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    align-items: center;
+    justify-items: center;
+
+    margin-bottom: 20px;
+
+}
+
+.match:hover {
+    cursor: pointer;
+}
+
+.match .registered-people {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    justify-items: center;
+}
+
+.match .registered-people img {
+    width: 25px;
+    height: 25px;
+    grid-column-start: 1;
+}
+
+.match .registered-people span.participants-number {
+    grid-column-start: 2;
+}
+
+.match span.place {
+    grid-row-start: 1;
+    grid-column-start: 2;
+}
+
+.match span.sport {
+    grid-row-start: 2;
+    grid-column-start: 2;
+}
+
+.match span.date {
+    grid-row-start: 3;
+    grid-column-start: 1;
+}
+
+.match span.time {
+    grid-row-start: 3;
+    grid-column-start: 2;
+}
+
+.match span.price {
+    grid-row-start: 3;
+    grid-column-start: 3;
+}
+
+img.add-button {
+    border-radius: 50%;
+    position: fixed;
+    right: 30px;
+    bottom: 30px;
+    z-index: 20;
+}
+
+img.add-button:hover {
+    cursor: pointer;
+}

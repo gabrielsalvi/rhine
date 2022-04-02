@@ -39,6 +39,7 @@
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/navbar.css">
     <link rel="stylesheet" href="../css/match.css">
+    <link rel="stylesheet" href="../css/matches.css">
 
     <title>Partidas</title>
 </head>
@@ -46,13 +47,6 @@
     <nav>
         <div class="website-logo">
             <span>Logo do Site</span>
-        </div>
-        <div class="search-field">
-            <input id="input-search" type="search" placeholder="Buscar partida">
-            <img src="../img/icons/searcher-white-50x50.png" alt="search">
-        </div>
-        <div class="filter-button">
-            <a href="" title="Filtrar" target="_blank"><img src="../img/icons/filter-50x50.png" alt="filtrar"></a>
         </div>
         <div class="profile-button">
             <a href="profile.php" title="Profile"><img src="../img/icons/default-profile-66x66.png" alt="profile"></a>
@@ -62,13 +56,19 @@
         <?php 
 
         $gameRepository = new GameRepository();
-        $games = $gameRepository->getGames();
+        
+        $cnpj = $_SESSION['auth-key'];
+        $games = $gameRepository->getGamesByCNPJ($cnpj);
 
         foreach ($games as $game) {
+            generateGameCard($game);
+            generateGameCard($game);
             generateGameCard($game);
         }
 
         ?>
+
+        <img class="add-button" src="../img/icons/add-100x100.png">
     </section>
 </body>
 </html>
