@@ -1,6 +1,6 @@
 <?php
-    require '../init.php';
-    require '../../src/game/GameRepository.php';
+    require_once '../init.php';
+    require_once '../../src/game/GameRepository.php';
 
     if (!isAuthenticated()) {
         header('Location: login.php');

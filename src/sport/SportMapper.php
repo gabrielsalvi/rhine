@@ -3,7 +3,6 @@
 class SportMapper {
     
     public static function toEntity($array) : Sport {
-
         require_once 'Sport.php';
         $sport = new Sport();
 

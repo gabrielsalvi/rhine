@@ -1,5 +1,5 @@
 <?php
-    require '../init.php';
+    require_once '../init.php';
 
     if (isAuthenticated()) {
         header('Location: login.php');
@@ -8,7 +8,7 @@
 
     if (isset($_POST['submit'])) {
         require '../../src/sport-center/SportCenterRepository.php';
-        require '../../src/sport-center/SportCenterMapper.php';
+        require_once '../../src/sport-center/SportCenterMapper.php';
 
         $sportCenter = SportCenterMapper::toModel($_POST);
     
@@ -17,7 +17,7 @@
 
         if ($created) {
             $_SESSION['auth-key'] = $sportCenter->getCNPJ();
-            header('Location: profile.php');
+            header('Location: my-matches.php');
         }
         
     }

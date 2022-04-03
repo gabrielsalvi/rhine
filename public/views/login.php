@@ -1,6 +1,5 @@
 <?php 
-
-    require '../init.php';
+    require_once '../init.php';
 
     if (isAuthenticated()) {
         header('Location: matches.php');

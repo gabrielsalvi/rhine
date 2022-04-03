@@ -1,5 +1,5 @@
 <?php
-    require '../init.php';
+    require_once '../init.php';
 
     if (isAuthenticated()) {
         header('Location: login.php');
@@ -7,8 +7,8 @@
     }
 
     if (isset($_POST['submit'])) {    
-        require '../../src/athlete/AthleteRepository.php';
-        require '../../src/athlete/AthleteMapper.php';
+        require_once '../../src/athlete/AthleteRepository.php';
+        require_once '../../src/athlete/AthleteMapper.php';
 
         $athlete = AthleteMapper::toModel($_POST);
     

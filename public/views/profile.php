@@ -1,7 +1,6 @@
 <?php
-
-    require '../init.php';
-    require '../../src/athlete/AthleteRepository.php';
+    require_once '../init.php';
+    require_once '../../src/athlete/AthleteRepository.php';
     
     if (!isset($_SESSION['auth-key'])) {
         header('Location: login.php');

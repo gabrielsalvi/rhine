@@ -43,7 +43,7 @@
 
         public function getSports() {
 
-            require 'SportMapper.php';
+            require_once 'SportMapper.php';
 
             $db = Database::getConnection();
 
