@@ -2,7 +2,7 @@
 
 class GameMapper {
     
-    public static function toModel($array, $cnpj) : Game {
+    public static function toModel($array, $sportCenter) : Game {
 
         require_once 'Game.php';
         $game = new Game();
@@ -11,13 +11,13 @@ class GameMapper {
         $game->setStartHour($array['start-time']);
         $game->setEndHour($array['end-time']);
         $game->setPrice($array['price']);
-        $game->setCNPJ($cnpj);
-        $game->setSportId($array['sport']);
+        $game->setSportCenter($sportCenter);
+        $game->setSport($array['sport']);
 
         return $game;
     }
     
-    public static function toEntity($array) : Game {
+    public static function toEntity($array, $sportCenter, $sport) : Game {
 
         require_once 'Game.php';
         $game = new Game();
@@ -27,8 +27,8 @@ class GameMapper {
         $game->setStartHour($array['hora_inicio']);
         $game->setEndHour($array['hora_termino']);
         $game->setPrice($array['valor']);
-        $game->setCNPJ($array['cnpj']);
-        $game->setSportId($array['id_esporte']);
+        $game->setSportCenter($sportCenter);
+        $game->setSport($sport);
 
         return $game;
     }

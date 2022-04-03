@@ -11,8 +11,8 @@
         
                 $stmt = $db->prepare($sql);
             
-                $stmt->bindParam(':cnpj', $game->getCNPJ());
-                $stmt->bindParam(':sport', $game->getSportId());
+                $stmt->bindParam(':cnpj', $game->getSportCenter());
+                $stmt->bindParam(':sport', $game->getSport());
                 $stmt->bindParam(':_date', $game->getDate());
                 $stmt->bindParam(':_start', $game->getStartHour());
                 $stmt->bindParam(':_end', $game->getEndHour());
@@ -26,66 +26,65 @@
             return false;
         }
 
-        public function getGamesByCNPJ($cnpj) {
-            require_once 'GameMapper.php';
-
-            $db = Database::getConnection();
-
-            $sql = "SELECT * FROM partidas WHERE cnpj = :cnpj;";
-
-            $stmt = $db->prepare($sql);
-            $stmt->bindParam(':cnpj', $cnpj);
-
-            $stmt->execute();
-
-            $gamesData = $stmt->fetchAll();
-
-            $games = [];
-
-            foreach ($gamesData as $gameData) {
-                $game = GameMapper::toEntity($gameData);
-                array_push($games, $game);
-            }
-
-            return $games;
-        }
-
         public function getGames() {
             require_once 'GameMapper.php';
+            require_once __DIR__ . '/../sport-center/SportCenterMapper.php';
+            require_once __DIR__ . '/../sport/SportMapper.php';
 
             $db = Database::getConnection();
 
-            $sql = "SELECT * FROM partidas;";
-
+            $sql = "SELECT p.id, p.data, p.hora_inicio, p.hora_termino, p.valor, 
+            est.nome, esp.descricao, esp.qtd_atletas FROM partidas p 
+            INNER JOIN estabelecimentos est ON (p.cnpj = est.cnpj) 
+            INNER JOIN esportes esp ON (p.id_esporte = esp.id);";
+            
             $stmt = $db->prepare($sql);
             $stmt->execute();
 
             $gamesData = $stmt->fetchAll();
-
             $games = [];
 
             foreach ($gamesData as $gameData) {
-                $game = GameMapper::toEntity($gameData);
+                $sportCenter = SportCenterMapper::toEntityIntoGame($gameData);
+                $sport = SportMapper::toEntityIntoGame($gameData); 
+
+                $game = GameMapper::toEntity($gameData, $sportCenter, $sport);
                 array_push($games, $game);
             }
 
             return $games;
         }
 
-        public function getSport($sportId) {
-            require_once __DIR__ . '../../sport/SportRepository.php';
-            $sportRepository = new SportRepository();
+        public function getGamesByCNPJ($cnpj) {
+            require_once 'GameMapper.php';
+            require_once __DIR__ . '/../sport-center/SportCenterMapper.php';
+            require_once __DIR__ . '/../sport/SportMapper.php';
 
-            return $sportRepository->getSportById($sportId);
+            $db = Database::getConnection();
+
+            $sql = "SELECT p.id, p.data, p.hora_inicio, p.hora_termino, p.valor, 
+            est.nome, esp.descricao, esp.qtd_atletas FROM partidas p 
+            INNER JOIN estabelecimentos est ON (p.cnpj = est.cnpj) 
+            INNER JOIN esportes esp ON (p.id_esporte = esp.id)
+            WHERE est.cnpj = :cnpj;";
+            
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(':cnpj', $cnpj);
+            $stmt->execute();
+
+            $gamesData = $stmt->fetchAll();
+            $games = [];
+
+            foreach ($gamesData as $gameData) {
+                $sportCenter = SportCenterMapper::toEntityIntoGame($gameData);
+                $sport = SportMapper::toEntityIntoGame($gameData); 
+
+                $game = GameMapper::toEntity($gameData, $sportCenter, $sport);
+                array_push($games, $game);
+            }
+
+            return $games;
         }
-
-        public function getSportCenter($cnpj) {
-            require_once __DIR__ . '../../sport-center/SportCenterRepository.php';
-            $sportCenterRepository = new SportCenterRepository();
-
-            return $sportCenterRepository->getSportCenterByCNPJ($cnpj);
-        }
-
     }
 
 ?>

@@ -7,12 +7,12 @@ class Game {
     private $startHour;
     private $endHour;
     private $price;
-    private $cnpj;
-    private $sportId;
+    private $sportCenter;
+    private $sport;
     
     public function validate() : bool {
         if(isset($this->date) && isset($this->startHour) && isset($this->endHour)
-          && isset($this->price) && isset($this->cnpj) && isset($this->sportId)) {
+          && isset($this->price) && isset($this->sportCenter) && isset($this->sport)) {
             return true;
         }
     
@@ -59,20 +59,20 @@ class Game {
         $this->price = $price;
     }
 
-    public function getCNPJ() {
-        return $this->cnpj;
+    public function getSportCenter() {
+        return $this->sportCenter;
     }
 
-    public function setCNPJ($cnpj) {
-        $this->cnpj = $cnpj;
+    public function setSportCenter($sportCenter) {
+        $this->sportCenter = $sportCenter;
     }
 
-    public function getSportId() {
-        return $this->sportId;
+    public function getSport() {
+        return $this->sport;
     }
 
-    public function setSportId($sportId) {
-        $this->sportId = $sportId;
+    public function setSport($sport) {
+        $this->sport = $sport;
     }
 }
 

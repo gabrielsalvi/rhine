@@ -33,6 +33,16 @@ class SportCenterMapper {
 
         return $sportCenter;
     }
+
+    public static function toEntityIntoGame($array) : SportCenter {
+        require_once 'SportCenter.php';
+        $sportCenter = new SportCenter();
+
+        $sportCenter->setName($array['nome']);
+        
+
+        return $sportCenter;
+    }
 }
 
 ?>

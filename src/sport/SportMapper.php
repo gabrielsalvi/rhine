@@ -12,6 +12,16 @@ class SportMapper {
 
         return $sport;
     }
+
+    public static function toEntityIntoGame($array) : Sport {
+        require_once 'Sport.php';
+        $sport = new Sport();
+
+        $sport->setDescription($array['descricao']);
+        $sport->setNumberOfParticipants($array['qtd_atletas']);
+
+        return $sport;
+    }
 }
 
 ?>
