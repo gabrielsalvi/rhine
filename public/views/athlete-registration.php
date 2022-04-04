@@ -2,8 +2,7 @@
     require_once '../init.php';
 
     if (isAuthenticated()) {
-        header('Location: login.php');
-        exit();
+        redirectToUserMainPage();
     }
 
     if (isset($_POST['submit'])) {    
@@ -17,7 +16,8 @@
 
         if ($created) {
             $_SESSION['auth-key'] = $athlete->getCPF();
-            header('Location: profile.php');
+            $_SESSION['user-role'] = 'athlete';
+            redirectToUserMainPage();
         }
     }
 

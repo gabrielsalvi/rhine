@@ -1,8 +1,8 @@
 <?php
     require_once '../init.php';
 
-    if (!isAuthenticated()) {
-        header('Location: login.php');
+    if (!hasRightToSeeThisPage($GLOBALS['athlete-role'])) {
+        redirectToUserMainPage();
     }
 
     if (isset($_POST['participate'])) {

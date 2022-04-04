@@ -2,7 +2,7 @@
     require_once '../init.php';
 
     if (isAuthenticated()) {
-        header('Location: matches.php');
+        redirectToUserMainPage();
     }
     
     if (isset($_POST['login'])) {

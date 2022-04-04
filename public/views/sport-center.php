@@ -2,9 +2,8 @@
     require_once '../init.php';
     require_once '../../src/sport-center/SportCenterRepository.php';
 
-    if (!isset($_SESSION['auth-key'])) {
-        header('Location: login.php');
-        exit();
+    if (!hasRightToSeeThisPage($GLOBALS['sport-center-role'])) {
+        redirectToUserMainPage();
     }
 
     $sportCenterRepository = new SportCenterRepository();

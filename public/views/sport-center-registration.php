@@ -2,8 +2,7 @@
     require_once '../init.php';
 
     if (isAuthenticated()) {
-        header('Location: login.php');
-        exit();
+        redirectToUserMainPage();
     }
 
     if (isset($_POST['submit'])) {
