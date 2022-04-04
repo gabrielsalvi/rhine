@@ -1,75 +1,64 @@
 <?php
     require_once '../init.php';
-    require_once '../../src/game/GameRepository.php';
 
     if (!isAuthenticated()) {
         header('Location: login.php');
     }
 
-    if (isset($_POST['join'])) {
-
-        $game_id =  $_POST['game-id'];
+    if (isset($_POST['participate'])) {
+        $gameId =  $_POST['game-id'];
         $cpf = $_SESSION['auth-key'];
 
-        if (alreadyRegisteredInThisGame($game_id, $cpf)) {
-            echo "<script>alert('Você já está participando dessa partida!');</script>";
-        } else {
-            $db = Database::getConnection();
-            
-            $sql = 'INSERT INTO partida_atletas (id_partida, cpf) VALUES (:game_id, :cpf);';
-    
-            $stmt = $db->prepare($sql);
-    
-            $stmt->bindParam(':game_id', $game_id);
-            $stmt->bindParam(':cpf', $cpf);
-    
-            $stmt->execute();
-
-            echo "<script>alert('Sua presença está garantida. Compareça no local do jogo no horário correto e divirta-se!');</script>";
-        }
+        participateInTheGame($gameId, $cpf);
     }
 
-    function generateGameCard($game) {
+    function generateGameCard($game, $numberOfGameParticipants) {
         echo 
             "<form class='match' method='post'>
                 <input style='display: none' name='game-id' value='{$game->getId()}'/>
                 <div class='registered-people'>
                     <img src='../img/icons/athlete-50x50.png'>
-                    <span class='participants-number'>0/{$game->getSport()->getNumberOfParticipants()}</span>
+                    <span class='participants-number'>{$numberOfGameParticipants}/{$game->getSport()->getNumberOfParticipants()}</span>
                 </div>
                 <span class='place'>{$game->getSportCenter()->getName()}</span>
                 <span class='sport'><strong>{$game->getSport()->getDescription()}</strong></span>
                 <span class='date'>{$game->getDate()}</span>
                 <span class='time'>{$game->getStartHour()} - {$game->getEndHour()}</span>
                 <span class='price'>R\${$game->getPrice()}</span>
-                <input type='submit' name='join' value='Participar'/>
+                <input type='submit' name='participate' value='Participar'/>
             </form>"
         ;
     }
 
-    function alreadyRegisteredInThisGame($game_id, $cpf) : bool {
+    function participateInTheGame($gameId, $cpf) {
+        if (!isAthleteAlreadyParticipatingInTheGame($gameId, $cpf)) {
+            require_once '../../src/game-participant/GameParticipant.php';
+            require_once '../../src/game-participant/GameParticipantRepository.php';
+    
+            $gameParticipant = new GameParticipant($gameId, $cpf);
         
-        $alreadyRegistered = false;
-
-        $db = Database::getConnection();
-            
-        $sql = 'SELECT * FROM partida_atletas WHERE id_partida = :game_id;';
-
-        $stmt = $db->prepare($sql);
-        $stmt->bindParam(':game_id', $game_id);
-
-        $stmt->execute();
-
-        $queryResults = $stmt->fetchAll();
-
-        foreach ($queryResults as $result) {
-            if ($result['cpf'] == $cpf) {
-                $alreadyRegistered = true;
-                break;
+            $gameParticipantRepository = new GameParticipantRepository();
+            $created = $gameParticipantRepository->create($gameParticipant);
+    
+            if ($created) {
+                echo "<script>alert('Sua presença foi confirmada. Compareça no local do jogo no horário certo e divirta-se!');</script>";
             }
+        } else {
+            echo "<script>alert('Você já está participando dessa partida!');</script>";
+        }
+    }
+
+    function isAthleteAlreadyParticipatingInTheGame($gameId, $cpf) : bool {
+        require_once '../../src/game-participant/GameParticipantRepository.php';
+
+        $gameParticipantRepository = new GameParticipantRepository();
+        $participantOfGame = $gameParticipantRepository->getParticipantOfGame($gameId, $cpf);
+
+        if ($participantOfGame) {
+            return true;
         }
 
-        return $alreadyRegistered;
+        return false;
 
     }
 
@@ -91,7 +80,7 @@
 <body>
     <nav>
         <div class="website-logo">
-            <span>Logo do Site</span>
+            <span>Rhine</span>
         </div>
         <div class="search-field">
             <input id="input-search" type="search" placeholder="Buscar">
@@ -105,14 +94,19 @@
         </div>
     </nav>
     <section id="matches-container">
-        <?php 
+        <?php
+
+        require_once '../../src/game/GameRepository.php';
+        require_once '../../src/game-participant/GameParticipantRepository.php';
 
         $gameRepository = new GameRepository();
+        $gameParticipantRepository = new GameParticipantRepository();
         
         $games = $gameRepository->getGames();
 
         foreach ($games as $game) {
-            generateGameCard($game);
+            $numberOfGameParticipants = $gameParticipantRepository->getNumberOfGameParticipants($game->getId());
+            generateGameCard($game, $numberOfGameParticipants);
         }
 
         ?>
