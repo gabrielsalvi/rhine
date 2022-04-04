@@ -6,25 +6,71 @@
         header('Location: login.php');
     }
 
-    function generateGameCard($game) {
-        $gameRepository = new GameRepository();
+    if (isset($_POST['join'])) {
 
-        $sport = $gameRepository->getSport($game->getSportId());
-        $sportCenter = $gameRepository->getSportCenter($game->getCNPJ());
-        
+        $game_id =  $_POST['game-id'];
+        $cpf = $_SESSION['auth-key'];
+
+        if (alreadyRegisteredInThisGame($game_id, $cpf)) {
+            echo "<script>alert('Você já está participando dessa partida!');</script>";
+        } else {
+            $db = Database::getConnection();
+            
+            $sql = 'INSERT INTO partida_atletas (id_partida, cpf) VALUES (:game_id, :cpf);';
+    
+            $stmt = $db->prepare($sql);
+    
+            $stmt->bindParam(':game_id', $game_id);
+            $stmt->bindParam(':cpf', $cpf);
+    
+            $stmt->execute();
+
+            echo "<script>alert('Sua presença está garantida. Compareça no local do jogo no horário correto e divirta-se!');</script>";
+        }
+    }
+
+    function generateGameCard($game) {
         echo 
-            "<div class='match'>
+            "<form class='match' method='post'>
+                <input style='display: none' name='game-id' value='{$game->getId()}'/>
                 <div class='registered-people'>
                     <img src='../img/icons/athlete-50x50.png'>
-                    <span class='participants-number'>0/{$sport->getNumberOfParticipants()}</span>
+                    <span class='participants-number'>0/{$game->getSport()->getNumberOfParticipants()}</span>
                 </div>
-                <span class='place'>{$sportCenter->getName()}</span>
-                <span class='sport'><strong>{$sport->getDescription()}</strong></span>
+                <span class='place'>{$game->getSportCenter()->getName()}</span>
+                <span class='sport'><strong>{$game->getSport()->getDescription()}</strong></span>
                 <span class='date'>{$game->getDate()}</span>
                 <span class='time'>{$game->getStartHour()} - {$game->getEndHour()}</span>
                 <span class='price'>R\${$game->getPrice()}</span>
-            </div>"
+                <input type='submit' name='join' value='Participar'/>
+            </form>"
         ;
+    }
+
+    function alreadyRegisteredInThisGame($game_id, $cpf) : bool {
+        
+        $alreadyRegistered = false;
+
+        $db = Database::getConnection();
+            
+        $sql = 'SELECT * FROM partida_atletas WHERE id_partida = :game_id;';
+
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(':game_id', $game_id);
+
+        $stmt->execute();
+
+        $queryResults = $stmt->fetchAll();
+
+        foreach ($queryResults as $result) {
+            if ($result['cpf'] == $cpf) {
+                $alreadyRegistered = true;
+                break;
+            }
+        }
+
+        return $alreadyRegistered;
+
     }
 
 ?>
@@ -38,7 +84,7 @@
     
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/navbar.css">
-    <link rel="stylesheet" href="../css/match.css">
+    <link rel="stylesheet" href="../css/matches.css">
 
     <title>Partidas</title>
 </head>
@@ -48,7 +94,7 @@
             <span>Logo do Site</span>
         </div>
         <div class="search-field">
-            <input id="input-search" type="search" placeholder="Buscar partida">
+            <input id="input-search" type="search" placeholder="Buscar">
             <img src="../img/icons/searcher-white-50x50.png" alt="search">
         </div>
         <div class="filter-button">
@@ -62,6 +108,7 @@
         <?php 
 
         $gameRepository = new GameRepository();
+        
         $games = $gameRepository->getGames();
 
         foreach ($games as $game) {
