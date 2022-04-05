@@ -6,7 +6,7 @@ class Database {
 
   public static function connect() {
     if (!self::$connection) {
-      require '../../resources/config.php';
+      require_once '../../resources/config.php';
 
       $dsn = "pgsql:host=$host;port=$port;dbname=$dbname;";
   
@@ -105,7 +105,7 @@ class Database {
         CONSTRAINT fk_estabelecimento FOREIGN KEY (cnpj) REFERENCES estabelecimentos (cnpj),
         CONSTRAINT fk_esporte FOREIGN KEY (id_esporte) REFERENCES esportes (id)
       );',
-      'CREATE TABLE IF NOT EXISTS partida_atletas (
+      'CREATE TABLE IF NOT EXISTS participantes_partida (
           id_partida INTEGER,
           cpf VARCHAR(11),
           PRIMARY KEY (id_partida, cpf),

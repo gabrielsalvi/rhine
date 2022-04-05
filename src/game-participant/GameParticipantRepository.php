@@ -6,7 +6,7 @@
             if ($gameParticipant->validate()) {
                 $db = Database::getConnection();
     
-                $sql = 'INSERT INTO partida_atletas (id_partida, cpf) VALUES (:game_id, :cpf);';
+                $sql = 'INSERT INTO participantes_partida (id_partida, cpf) VALUES (:game_id, :cpf);';
     
                 $stmt = $db->prepare($sql);
                 $stmt->bindParam(':game_id', $gameParticipant->getGameId());
@@ -22,7 +22,7 @@
         public function getParticipantOfGame($gameId, $cpf) {
             $db = Database::getConnection();
                 
-            $sql = 'SELECT * FROM partida_atletas WHERE id_partida = :game_id AND cpf = :cpf;';
+            $sql = 'SELECT * FROM participantes_partida WHERE id_partida = :game_id AND cpf = :cpf;';
     
             $stmt = $db->prepare($sql);
             $stmt->bindParam(':game_id', $gameId);
@@ -37,7 +37,7 @@
         public function getNumberOfGameParticipants($gameId) {
             $db = Database::getConnection();
                 
-            $sql = 'SELECT count(*) as participants_number FROM partida_atletas WHERE id_partida = :game_id;';
+            $sql = 'SELECT count(*) as participants_number FROM participantes_partida WHERE id_partida = :game_id;';
     
             $stmt = $db->prepare($sql);
             $stmt->bindParam(':game_id', $gameId);
