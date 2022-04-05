@@ -31,7 +31,7 @@ form#match-registration-form {
     grid-template-rows: repeat(11, 1fr);
 }
 
-form#match-registration-form img#close-form {
+form#match-registration-form div#close-form {
     width: 35px;
     height: 35px;
     grid-column: 4;
@@ -39,9 +39,12 @@ form#match-registration-form img#close-form {
     align-self: end;
     justify-self: end;
     margin-right: 15px;
+    color: var(--purple-300);
+    font-weight: bold;
+    font-size: 25px;
 }
 
-form#match-registration-form img#close-form {
+form#match-registration-form div#close-form {
   cursor: pointer;
 }
 
@@ -131,6 +134,7 @@ form#match-registration-form input[type=submit] {
     justify-items: center;
 
     margin-bottom: 20px;
+    font-size: 18px;
 
 }
 

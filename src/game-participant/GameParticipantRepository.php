@@ -37,15 +37,15 @@
         public function getNumberOfGameParticipants($gameId) {
             $db = Database::getConnection();
                 
-            $sql = 'SELECT count(*) as number_of_game_participants FROM partida_atletas WHERE id_partida = :game_id;';
+            $sql = 'SELECT count(*) as participants_number FROM partida_atletas WHERE id_partida = :game_id;';
     
             $stmt = $db->prepare($sql);
             $stmt->bindParam(':game_id', $gameId);
             $stmt->execute();
     
-            $numberOfGameParticipants = $stmt->fetch()['number_of_game_participants'];
+            $numberOfGameParticipants = $stmt->fetch();
 
-            return $numberOfGameParticipants;
+            return $numberOfGameParticipants['participants_number'];
         }
     }
 

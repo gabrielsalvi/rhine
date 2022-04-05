@@ -1,19 +1,20 @@
 <?php
     require_once '../init.php';
-    require_once '../../src/game/GameRepository.php';
 
-    if (!isAuthenticated()) {
-        header('Location: login.php');
+    if (!hasRightToSeeThisPage($GLOBALS['sport-center-role'])) {
+        redirectToUserMainPage();
     }
 
-    registerNewGame();
+    if (isset($_POST['create-game'])) {
+        registerNewGame();
+    }
 
-    function generateGameCard($game) {
+    function generateGameCard($game, $numberOfGameParticipants) {
         echo 
             "<div class='match'>
                 <div class='registered-people'>
                     <img src='../img/icons/athlete-50x50.png'>
-                    <span class='participants-number'>0/{$game->getSport()->getNumberOfParticipants()}</span>
+                    <span class='participants-number'>{$numberOfGameParticipants}/{$game->getSport()->getNumberOfParticipants()}</span>
                 </div>
                 <span class='place'>{$game->getSportCenter()->getName()}</span>
                 <span class='sport'><strong>{$game->getSport()->getDescription()}</strong></span>
@@ -35,20 +36,18 @@
         }
     }
 
-    function registerNewGame() {
-        if (isset($_POST['create-game'])) {    
-            require_once '../../src/game/GameRepository.php';
-            require_once '../../src/game/GameMapper.php';
+    function registerNewGame() {  
+        require_once '../../src/game/GameRepository.php';
+        require_once '../../src/game/GameMapper.php';
+    
+        $cnpj = $_SESSION['auth-key'];
+        $game = GameMapper::toModel($_POST, $cnpj);
+    
+        $gameRepository = new GameRepository();
+        $created = $gameRepository->create($game);
         
-            $cnpj = $_SESSION['auth-key'];
-            $game = GameMapper::toModel($_POST, $cnpj);
-        
-            $gameRepository = new GameRepository();
-            $created = $gameRepository->create($game);
-            
-            if ($created) {
-                header('Location: my-matches.php');
-            }
+        if ($created) {
+            header('Location: my-matches.php');
         }
     }
 ?>
@@ -71,22 +70,27 @@
     <div class="page-container">
         <nav>
             <div class="website-logo">
-                <span>Logo do Site</span>
+                <span>Rhine</span>
             </div>
             <div class="profile-button">
                 <a href="sport-center.php" title="Profile"><img src="../img/icons/default-profile-66x66.png" alt="profile"></a>
             </div>
         </nav>
         <section id="matches-container">
-            <?php 
-
+            <?php
+            
+            require_once '../../src/game/GameRepository.php';
+            require_once '../../src/game-participant/GameParticipantRepository.php';
+                
             $gameRepository = new GameRepository();
+            $gameParticipantRepository = new GameParticipantRepository();
             
             $cnpj = $_SESSION['auth-key'];
             $games = $gameRepository->getGamesByCNPJ($cnpj);
 
             foreach ($games as $game) {
-                generateGameCard($game);
+                $numberOfGameParticipants = $gameParticipantRepository->getNumberOfGameParticipants($game->getId());
+                generateGameCard($game, $numberOfGameParticipants);
             }
 
             ?>
@@ -95,9 +99,9 @@
         </section>
     </div>
     
-    <div class="form-container" style="display:none">
+    <div class="form-container" style="display: none">
         <form id="match-registration-form" action="my-matches.php" method="post">
-            <img id="close-form" src="../img/icons/close-60x60.png">
+            <div id="close-form">&times;</div>
             <h1>Dados da Partida</h1>
 
             <label for="sport">Esporte:</label>
@@ -117,7 +121,7 @@
             <label for="price">Valor (R$): </label>
             <input type="text" name="price" placeholder="15,00" required/>
             
-            <input type="submit" name="create-game" value="Ofertar"/>
+            <input type="submit" name="create-game" value="Salvar"/>
         </form>
     </div>
 
