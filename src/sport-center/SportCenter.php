@@ -70,7 +70,7 @@ class SportCenter {
   }
   
   public function setOpenHour($openHour) {
-    $this->openHour = $openHour;
+    $this->openHour = date('H:i', strtotime($openHour));
   }
 
   public function getOpenHour() {
@@ -78,7 +78,7 @@ class SportCenter {
   }
 
   public function setCloseHour($closeHour) {
-    $this->closeHour = $closeHour;
+    $this->closeHour = date('H:i', strtotime($closeHour));
   }
 
   public function getCloseHour() {

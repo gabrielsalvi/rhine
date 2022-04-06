@@ -40,7 +40,7 @@ class Game {
     }
 
     public function setStartHour($startHour) {
-        $this->startHour = $startHour;
+        $this->startHour = date('H:i', strtotime($startHour));
     }
 
     public function getEndHour() {
@@ -48,7 +48,7 @@ class Game {
     }
 
     public function setEndHour($endHour) {
-        $this->endHour = $endHour;
+        $this->endHour = date('H:i', strtotime($endHour));
     }
 
     public function getPrice() {
