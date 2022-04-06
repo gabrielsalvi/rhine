@@ -27,11 +27,11 @@
     <body>
         <div class="form-container">
             <form id="login-form" action="login.php" method="post">
-                <input type="text" name="email" placeholder="Email" required/>
+                <input type="email" name="email" placeholder="Email" required/>
                 <input type="password" name="password" placeholder="Senha" required/>
                 <input type="submit" name="login" value="Login">
                 <div class="forgot-password">
-                    <a href="reset-password.php">Esqueceu a senha?</a>
+                    <a href="account-registration.php">Não posssui uma conta?</a>
                 </div>
             </form>
         </div>
