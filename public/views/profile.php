@@ -8,9 +8,6 @@
 
     $athleteRepository = new AthleteRepository();
     $athlete = $athleteRepository->getAthleteByCPF($_SESSION['auth-key']);
-    
-    $fullName = $athlete->getFirstName() . " " . $athlete->getLastName();
-
 ?>
 
 <!DOCTYPE html>
@@ -22,25 +19,40 @@
     
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/profile.css">
+    <link rel="stylesheet" href="../css/dropdown.css">
 
     <title>Profile</title>
+    
 </head>
-<body>
-<div class='profile-container'>
-    <div class='banner'></div>
-    <div class='profile-photo-area'></div>
-    <div class='profile-info'>
-        <span class='name'>
-            <?= $fullName ?>
-        </span>
-        <span class='username'>
-            @<?= $athlete->getUsername() ?>
-        </span>
+<body>    
+    <div class='profile-container'>
+        <div class='banner'>
+            <div class="dropdown">
+                <img id="options-menu" src="../img/icons/menu-48x48.png"/>
+                <div class="dropdown-content">
+                    <a href="matches.php">Partidas</a>
+                    <a href="update-profile.php">Editar Perfil</a>
+                    <a href="logout.php">Sair</a>
+                </div>
+            </div>
+        </div>
+        <div class='profile-photo-area'>
+            <img src="../img/default-user-pic.png">
+        </div>
+        <div class='profile-info'>
+            <span class='name'>
+                <?= $athlete->getFirstName() . " " . $athlete->getLastName() ?>
+            </span>
+            <span class='username'>
+                @<?= $athlete->getUsername() ?>
+            </span>
+        </div>
+        <div class='rating'>    
+            <img src='../img/icons/star-48x48.png'>
+            <a href=''><span>5.0/5 - Avaliação(ões)</span></a>
+        </div>
     </div>
-    <div class='rating'>    
-        <img src='../img/icons/star-48x48.png'>
-        <a href=''><span>5.0/5 - Avaliação(ões)</span></a>
-    </div>
-</div>    
+
+    <script src="../js/dropdown.js" type="text/javascript"></script>
 </body>
 </html>

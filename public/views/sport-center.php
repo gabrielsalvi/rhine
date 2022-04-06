@@ -20,13 +20,24 @@
     
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/profile.css">
+    <link rel="stylesheet" href="../css/dropdown.css">
 
     <title>Profile</title>
 </head>
 <body>
     <div class="profile-container">
-        <div class="banner"></div>
-        <div class="profile-photo-area"></div>
+        <div class="banner">
+            <div class="dropdown">
+                <img id="options-menu" src="../img/icons/menu-48x48.png"/>
+                <div class="dropdown-content">
+                    <a href="my-matches.php">Minhas Partidas</a>
+                    <a href="logout.php">Sair</a>
+                </div>
+            </div>
+        </div>
+        <div class="profile-photo-area">
+            <img src="../img/default-user-pic.png">
+        </div>
         <div class="profile-info">
             <span class="name">
                 <?= $sportCenter->getName() ?></span>
@@ -45,5 +56,7 @@
                 <?= $sportCenter->getOpenHour() . " - " . $sportCenter->getCloseHour() ?></span>
         </div>
     </div>
+
+    <script src="../js/dropdown.js" type="text/javascript"></script>
 </body>
 </html>

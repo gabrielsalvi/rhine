@@ -2,12 +2,16 @@ nav {
     display: grid;
     grid-template-columns: 1fr 2fr 0.5fr 0.5fr;
     grid-template-rows: 0.5fr 1.5fr 0.5fr;
-    
+
     align-items: center;
     justify-items: center;
 
     border: 1px solid var(--purple-400);
     background-color: var(--purple-300);
+
+    width: 100%;
+    height: 130px;
+    max-height: 130px;
 }
 
 nav .website-logo {
@@ -19,6 +23,7 @@ nav .website-logo span {
     background-color: var(--purple-500);
     color: white;
     border-radius: 15px;
+    padding: 10px 30px;
 }
 
 nav .search-field {
@@ -32,12 +37,14 @@ nav .search-field {
 
 nav .search-field input {
     width: 95%;
+    height: 35px;
     border-radius: 15px 0px 0px 15px;
-    text-align:center;
+    text-align: center;
 }
 
 nav .search-field img {
-    width: 5%;
+    width: 6%;
+    height: 35px;
     border-radius: 0px 15px 15px 0px;
     border-left: 2px solid var(--purple-500);
     background-color: var(--purple-500);
@@ -46,21 +53,41 @@ nav .search-field img {
 nav .filter-button {
     grid-column-start: 3;
     grid-row-start: 2;
-    
+
     justify-self: start;
 }
 
 nav .filter-button img {
-    width: 55%;
+    width: 85%;
+    height: 30px;
     margin: auto;
 }
 
 nav .profile-button {
+    color: #fff;
     grid-column-start: 4;
     grid-row-start: 2;
+
+    display: grid;
+    grid-template-rows: 1fr 0.1fr;
+    justify-items: center;
+    align-items: center;
 }
 
-nav .profile-button img {
-    width: 75%;
-    margin: auto;
+nav .profile-button a {
+    grid-row: 1;
+    width: 60%;
+    border-radius: 50%;
+    background-color: #fff;
+    font-size: 0;
+}
+
+nav .profile-button a img {
+    width: 100%;
+}
+
+nav .profile-button span {
+    grid-row: 2;
+    color: #fff;
+    margin-top: 3px;
 }
