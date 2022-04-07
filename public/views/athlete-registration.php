@@ -4,23 +4,6 @@
     if (isAuthenticated()) {
         redirectToUserMainPage();
     }
-
-    if (isset($_POST['submit'])) {    
-        require_once '../../src/athlete/AthleteRepository.php';
-        require_once '../../src/athlete/AthleteMapper.php';
-
-        $athlete = AthleteMapper::toModel($_POST);
-    
-        $athleteRepository = new AthleteRepository();
-        $created = $athleteRepository->create($athlete);
-
-        if ($created) {
-            $_SESSION['auth-key'] = $athlete->getCPF();
-            $_SESSION['user-role'] = 'athlete';
-            redirectToUserMainPage();
-        }
-    }
-
 ?>
 
 <!DOCTYPE html>
@@ -38,7 +21,7 @@
     </head>
     <body>
         <div class="form-container">
-            <form id="athlete-registration-form" action="athlete-registration.php" method="post">
+            <form id="athlete-registration-form" action="athlete-location.php" method="post">
                 <h1>Cadastro de Atleta</h1>
 
                 <label for="first-name">Nome:</label>

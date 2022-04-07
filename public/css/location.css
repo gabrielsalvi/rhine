@@ -1,0 +1,45 @@
+form.location-form {
+    width: 50%;
+    height: 80%;
+    display: grid;
+    grid-template-columns: 0.5fr 1fr 2fr 0.5fr;
+    grid-template-rows: repeat(8, 1fr);
+}
+
+form.location-form input, select {
+    width: 95%;
+    height: 40px;
+    text-align: center;
+    justify-self: end;
+}
+
+form.location-form h1 {
+    grid-column: 2 / 4;
+    grid-row: 2;
+}
+
+form.location-form label[for='state'] {
+    grid-column: 2;
+    grid-row: 4;
+}
+
+form.location-form select[name='state'] {
+    grid-column: 3;
+    grid-row: 4;
+}
+
+form.location-form label[for='city'] {
+    grid-column: 2;
+    grid-row: 5;
+}
+
+form.location-form input[name='city'] {
+    grid-column: 3;
+    grid-row: 5;
+}
+
+form.location-form input[name='save'] {
+    grid-column: 2 / 4;
+    grid-row: 7;
+    width: 100%;
+}
