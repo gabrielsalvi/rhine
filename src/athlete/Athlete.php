@@ -80,12 +80,12 @@ class Athlete {
     return $this->password;
   }
 
-  public function setCityId($password) {
-    $this->password = $password;
+  public function setCityId($cityId) {
+    $this->cityId = $cityId;
   }
 
   public function getCityId() {
-    return $this->password;
+    return $this->cityId;
   }
   
 }
