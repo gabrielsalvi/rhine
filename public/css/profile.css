@@ -101,10 +101,13 @@
     padding: 10px;
     overflow: hidden;
     align-self: start;
-
     display: flex;
-    justify-content: center;
-    align-items: center;
+}
+
+.profile-container .description span {
+    text-align: center;
+    align-self: center;
+    justify-self: center;
 }
 
 .profile-container .working-time {
