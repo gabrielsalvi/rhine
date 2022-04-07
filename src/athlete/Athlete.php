@@ -9,11 +9,11 @@ class Athlete {
   private $username;
   private $email;
   private $password;
+  private $cityId;
 
   public function validate() : bool {
-
     if(isset($this->firstName) && isset($this->lastName) && isset($this->cpf) && isset($this->birthdate)
-      && isset($this->username) && isset($this->email) && isset($this->password)) {
+      && isset($this->username) && isset($this->email) && isset($this->password) && isset($this->cityId)) {        
         return true;
     }
 
@@ -77,6 +77,14 @@ class Athlete {
   }
 
   public function getPassword() {
+    return $this->password;
+  }
+
+  public function setCityId($password) {
+    $this->password = $password;
+  }
+
+  public function getCityId() {
     return $this->password;
   }
   

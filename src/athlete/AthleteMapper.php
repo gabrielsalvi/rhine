@@ -3,7 +3,6 @@
 class AthleteMapper {
     
     public static function toModel($array) : Athlete {
-
         require_once 'Athlete.php';
         $athlete = new Athlete();
 
@@ -13,13 +12,12 @@ class AthleteMapper {
         $athlete->setBirthdate($array['birthdate']);
         $athlete->setUsername($array['username']);
         $athlete->setEmail($array['email']);
-        $athlete->setPassword($array['password']);        
+        $athlete->setPassword($array['password']);  
 
         return $athlete;
     }
     
     public static function toEntity($array) : Athlete {
-
         require_once 'Athlete.php';
         $athlete = new Athlete();
 
@@ -30,6 +28,7 @@ class AthleteMapper {
         $athlete->setUsername($array['username']);
         $athlete->setEmail($array['email']);
         $athlete->setPassword($array['senha']);
+        $athlete->setCityId($array['id_cidade']);
 
         return $athlete;
     }
