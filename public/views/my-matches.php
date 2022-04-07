@@ -105,7 +105,11 @@
                     generateGameCard($game, getGameParticipantsNumber($game->getId()));
                 }
             } else {
-                // mensagem dizendo que ainda não há jogos na sua região
+                echo "
+                    <div class='no-games'>
+                        <span>Você não está ofertando nenhuma partida no momento. Oferte uma partida e espalhe diversão e alegria =)</span>
+                    </div>"
+                ;
             }
 
             ?>

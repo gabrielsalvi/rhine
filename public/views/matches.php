@@ -119,10 +119,15 @@
                 generateGameCard($game, getGameParticipantsNumber($game->getId()));
             }
         } else {
-            // mensagem dizendo que ainda não há jogos na sua região
+            echo "
+                <div class='no-games'>
+                    <span>Infelizmente ainda não há nenhuma partida disponível na sua cidade!</span>
+                </div>"
+            ;
         }
 
         ?>
     </section>
+
 </body>
 </html>

@@ -199,3 +199,12 @@ form#match-registration-form input[type=submit] {
     cursor: pointer;
     background-color: var(--purple-500);
 }
+
+.no-games {
+    grid-column: 2 / 3;
+    border: 2px solid var(--purple-200);
+    border-radius: 15px;
+    background-color: lightgray;
+    color: var(--purple-500);
+    padding: 15px;
+}
