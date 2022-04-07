@@ -121,7 +121,7 @@ class Database {
         id_partida INTEGER,
         estrelas INTEGER NOT NULL,
         comentario VARCHAR(180) NOT NULL,
-        avaliador VARCHAR(11 NOT NULL,
+        avaliador VARCHAR(11) NOT NULL,
         avaliado VARCHAR(11) NOT NULL,
         PRIMARY KEY(id_partida, avaliador, avaliado),
         CONSTRAINT fk_partida FOREIGN KEY (id_partida) REFERENCES partidas (id),
