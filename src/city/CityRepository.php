@@ -34,9 +34,13 @@
             $stmt->execute();
 
             $cityData = $stmt->fetch();
-            $city = CityMapper::toEntity($cityData);
 
-            return $city;
+            if ($cityData) {
+                $city = CityMapper::toEntity($cityData);
+                return $city;
+            }
+
+            return null;
         }
     }   
 
