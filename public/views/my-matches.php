@@ -1,5 +1,9 @@
 <?php
     require_once '../init.php';
+    require_once '../../src/sport-center/SportCenterRepository.php';
+
+    $sportCenterRepository = new SportCenterRepository();
+    $sportCenter = $sportCenterRepository->getSportCenterByCNPJ($_SESSION['auth-key']);
 
     if (!hasRightToSeeThisPage($GLOBALS['sport-center-role'])) {
         redirectToUserMainPage();
@@ -7,6 +11,20 @@
 
     if (isset($_POST['create-game'])) {
         registerNewGame();
+    }
+
+    function getGamesByCNPJ($cnpj) {
+        require_once '../../src/game/GameRepository.php';
+        $gameRepository = new GameRepository();
+        
+        return $gameRepository->getGamesByCNPJ($cnpj);
+    }
+
+    function getGameParticipantsNumber($gameId) {
+        require_once '../../src/game-participant/GameParticipantRepository.php';
+        $gameParticipantRepository = new GameParticipantRepository();
+        
+        return $gameParticipantRepository->getNumberOfGameParticipants($gameId);
     }
 
     function generateGameCard($game, $numberOfGameParticipants) {
@@ -18,8 +36,8 @@
                 </div>
                 <span class='place'>{$game->getSportCenter()->getName()}</span>
                 <span class='sport'><strong>{$game->getSport()->getDescription()}</strong></span>
-                <span class='date'>{$game->getDate()}</span>
-                <span class='time'>{$game->getStartHour()} - {$game->getEndHour()}</span>
+                <span class='date'>{$game->getFormattedDate()}</span>
+                <span class='time'>{$game->getStartHour()}/{$game->getEndHour()}</span>
                 <span class='price'>R\${$game->getPrice()}</span>
             </div>"
         ;
@@ -74,23 +92,20 @@
             </div>
             <div class="profile-button">
                 <a href="sport-center.php" title="Profile"><img src="../img/icons/default-profile-66x66.png" alt="profile"></a>
+                <span><?= $sportCenter->getUsername() ?></span>
             </div>
         </nav>
         <section id="matches-container">
             <?php
-            
-            require_once '../../src/game/GameRepository.php';
-            require_once '../../src/game-participant/GameParticipantRepository.php';
-                
-            $gameRepository = new GameRepository();
-            $gameParticipantRepository = new GameParticipantRepository();
-            
-            $cnpj = $_SESSION['auth-key'];
-            $games = $gameRepository->getGamesByCNPJ($cnpj);
 
-            foreach ($games as $game) {
-                $numberOfGameParticipants = $gameParticipantRepository->getNumberOfGameParticipants($game->getId());
-                generateGameCard($game, $numberOfGameParticipants);
+            $games = getGamesByCNPJ($sportCenter->getCNPJ());
+
+            if ($games) {
+                foreach ($games as $game) {
+                    generateGameCard($game, getGameParticipantsNumber($game->getId()));
+                }
+            } else {
+                // mensagem dizendo que ainda não há jogos na sua região
             }
 
             ?>

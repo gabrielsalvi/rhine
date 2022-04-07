@@ -1,15 +1,30 @@
 <?php
     require_once '../init.php';
+    require_once '../../src/athlete/AthleteRepository.php';
 
     if (!hasRightToSeeThisPage($GLOBALS['athlete-role'])) {
         redirectToUserMainPage();
     }
 
-    if (isset($_POST['participate'])) {
-        $gameId =  $_POST['game-id'];
-        $cpf = $_SESSION['auth-key'];
+    $athleteRepository = new AthleteRepository();
+    $athlete = $athleteRepository->getAthleteByCPF($_SESSION['auth-key']);
 
-        participateInTheGame($gameId, $cpf);
+    if (isset($_POST['participate'])) {
+        participateInTheGame($_POST['game-id'], $athlete->getCPF());
+    }
+
+    function getGames() {
+        require_once '../../src/game/GameRepository.php';
+        $gameRepository = new GameRepository();
+        
+        return $gameRepository->getGames();
+    }
+
+    function getGameParticipantsNumber($gameId) {
+        require_once '../../src/game-participant/GameParticipantRepository.php';
+        $gameParticipantRepository = new GameParticipantRepository();
+        
+        return $gameParticipantRepository->getNumberOfGameParticipants($gameId);
     }
 
     function generateGameCard($game, $numberOfGameParticipants) {
@@ -22,8 +37,8 @@
                 </div>
                 <span class='place'>{$game->getSportCenter()->getName()}</span>
                 <span class='sport'><strong>{$game->getSport()->getDescription()}</strong></span>
-                <span class='date'>{$game->getDate()}</span>
-                <span class='time'>{$game->getStartHour()} - {$game->getEndHour()}</span>
+                <span class='date'>{$game->getFormattedDate()}</span>
+                <span class='time'>{$game->getStartHour()}/{$game->getEndHour()}</span>
                 <span class='price'>R\${$game->getPrice()}</span>
                 <input type='submit' name='participate' value='Participar'/>
             </form>"
@@ -90,23 +105,21 @@
             <a href="" title="Filtrar" target="_blank"><img src="../img/icons/filter-50x50.png" alt="filtrar"></a>
         </div>
         <div class="profile-button">
-            <a href="profile.php" title="Profile"><img src="../img/icons/default-profile-66x66.png" alt="profile"></a>
+            <a href="profile.php" title="Perfil"><img src="../img/icons/default-profile-66x66.png" alt="profile"></a>
+            <span><?= $athlete->getUsername() ?></span>
         </div>
     </nav>
     <section id="matches-container">
         <?php
-
-        require_once '../../src/game/GameRepository.php';
-        require_once '../../src/game-participant/GameParticipantRepository.php';
-
-        $gameRepository = new GameRepository();
-        $gameParticipantRepository = new GameParticipantRepository();
         
-        $games = $gameRepository->getGames();
+        $games = getGames();
 
-        foreach ($games as $game) {
-            $numberOfGameParticipants = $gameParticipantRepository->getNumberOfGameParticipants($game->getId());
-            generateGameCard($game, $numberOfGameParticipants);
+        if ($games) {
+            foreach ($games as $game) {
+                generateGameCard($game, getGameParticipantsNumber($game->getId()));
+            }
+        } else {
+            // mensagem dizendo que ainda não há jogos na sua região
         }
 
         ?>
