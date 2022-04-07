@@ -52,6 +52,10 @@ class Athlete {
     return $this->birthdate;
   }
 
+  public function getFormattedBirthdate() {
+    return date('d/m/y', strtotime($this->birthdate));
+  }
+
   public function setUsername($username) {
     $this->username = $username;
   }

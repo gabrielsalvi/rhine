@@ -31,6 +31,10 @@ class Game {
         return $this->date;
     }
 
+    public function getFormattedDate() {
+        return date('d/m/y', strtotime($this->date));
+    }
+
     public function setDate($date) {
         $this->date = $date;
     }
