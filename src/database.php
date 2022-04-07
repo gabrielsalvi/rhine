@@ -44,13 +44,18 @@ class Database {
   private static function createTables() {
   
     $statements = [
-      'CREATE TABLE IF NOT EXISTS localizacoes (
+      'CREATE TABLE IF NOT EXISTS estados (
         id SERIAL,
-        uf VARCHAR(2) NOT NULL,
-        cidade VARCHAR(25) NOT NULL,
-        logradouro VARCHAR(80),
-        numero VARCHAR(10),
+        nome VARCHAR(20) NOT NULL,
+        sigla VARCHAR(2) NOT NULL,
         PRIMARY KEY (id)
+      );',
+      'CREATE TABLE IF NOT EXISTS cidades (
+        id SERIAL,
+        nome VARCHAR(100) NOT NULL,
+        id_estado INTEGER NOT NULL,
+        PRIMARY KEY (id),
+        CONSTRAINT fk_estado FOREIGN KEY (id_estado) REFERENCES estados (id)
       );',
       'CREATE TABLE IF NOT EXISTS atletas (
         cpf VARCHAR(11),
@@ -60,9 +65,9 @@ class Database {
         username VARCHAR(20) NOT NULL,
         email VARCHAR(30) NOT NULL,
         senha VARCHAR(255) NOT NULL,
-        id_localizacao INTEGER,
+        id_cidade INTEGER NOT NULL,
         PRIMARY KEY (cpf),
-        CONSTRAINT fk_localizacao FOREIGN KEY (id_localizacao) REFERENCES localizacoes (id),
+        CONSTRAINT fk_cidade FOREIGN KEY (id_cidade) REFERENCES cidades (id),
         UNIQUE (email, username)
       );',
       'CREATE TABLE IF NOT EXISTS estabelecimentos (
@@ -77,15 +82,15 @@ class Database {
           PRIMARY KEY (cnpj),
           UNIQUE (email, username)
       );',
-      'CREATE TABLE IF NOT EXISTS enderecos_estabelecimentos (
+      'CREATE TABLE IF NOT EXISTS enderecos_estabelecimento (
         id SERIAL,
-        cnpj VARCHAR(14),
-        id_localizacao INTEGER,
+        cnpj VARCHAR(14) NOT NULL,
+        id_cidade INTEGER NOT NULL,
         logradouro VARCHAR(100) NOT NULL,
         numero VARCHAR(10) NOT NULL,
         PRIMARY KEY (id),
         CONSTRAINT fk_estabelecimento FOREIGN KEY (cnpj) REFERENCES estabelecimentos (cnpj),
-        CONSTRAINT fk_localizacao FOREIGN KEY (id_localizacao) REFERENCES localizacoes (id)
+        CONSTRAINT fk_cidade FOREIGN KEY (id_cidade) REFERENCES cidades (id)
       );',
       'CREATE TABLE IF NOT EXISTS esportes (
         id SERIAL,
@@ -99,15 +104,15 @@ class Database {
         hora_inicio TIME NOT NULL,
         hora_termino TIME NOT NULL,
         valor NUMERIC(15,2) NOT NULL,
-        id_esporte INTEGER,
-        cnpj VARCHAR(14),
+        id_esporte INTEGER NOT NULL,
+        cnpj VARCHAR(14) NOT NULL,
         PRIMARY KEY (id),
         CONSTRAINT fk_estabelecimento FOREIGN KEY (cnpj) REFERENCES estabelecimentos (cnpj),
         CONSTRAINT fk_esporte FOREIGN KEY (id_esporte) REFERENCES esportes (id)
       );',
       'CREATE TABLE IF NOT EXISTS participantes_partida (
-          id_partida INTEGER,
-          cpf VARCHAR(11),
+          id_partida INTEGER NOT NULL,
+          cpf VARCHAR(11) NOT NULL,
           PRIMARY KEY (id_partida, cpf),
           CONSTRAINT fk_partida FOREIGN KEY (id_partida) REFERENCES partidas (id),
           CONSTRAINT fk_atleta FOREIGN KEY (cpf) REFERENCES atletas (cpf)
@@ -115,9 +120,9 @@ class Database {
       'CREATE TABLE IF NOT EXISTS avaliacao (
         id_partida INTEGER,
         estrelas INTEGER NOT NULL,
-        comentario VARCHAR(180),
-        avaliador VARCHAR(11),
-        avaliado VARCHAR(11),
+        comentario VARCHAR(180) NOT NULL,
+        avaliador VARCHAR(11 NOT NULL,
+        avaliado VARCHAR(11) NOT NULL,
         PRIMARY KEY(id_partida, avaliador, avaliado),
         CONSTRAINT fk_partida FOREIGN KEY (id_partida) REFERENCES partidas (id),
         CONSTRAINT fk_avaliador FOREIGN KEY (avaliador) REFERENCES atletas (cpf),
